@@ -65,13 +65,13 @@ var ORION_CASES = [
     result: '$2,885 заработка за период работы',
     period: '25.08.2026 — 28.09.2026',
     stats: [
-      { label: 'Переходы', value: '—' },
-      { label: 'Новые фаны', value: '—' },
+      { label: 'Переходы', value: '$2,885' },
+      { label: 'Новые фаны', value: '915' },
       { label: 'Фаны', value: '610' },
       { label: 'Spenders', value: '24' } 
     ],
     image: 'assets/cases/case-01/main.jpg',
-    gallery: [assets/cases/case-01/01.jpg],
+    gallery: ['assets/cases/case-01/01.jpg'],
     chart: [],
     link: ''
   },
