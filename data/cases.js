@@ -59,17 +59,19 @@ var ORION_CASES = [
   {
     id: 'case-01',
     code: '01',
-    title: 'Кейс 01',
+    title: 'Reddit Traffic — кейс модели',
     platform: 'OnlyFans',
-    description: 'Заглушка кейса. Замените платформу, описание, результат и период, когда появятся реальные данные.',
-    result: '',
-    period: 'Период',
+    description: 'Системное ведение Reddit с ежедневными публикациями, тестированием сабреддитов и масштабированием рабочих форматов',
+    result: '$2,885 заработка за период работы',
+    period: '25.08.2026 — 28.09.2026',
     stats: [
-      { label: 'Доход', value: '—' },
-      { label: 'Фанаты', value: '—' }
+      { label: 'Переходы', value: '—' },
+      { label: 'Новые фаны', value: '—' },
+      { label: 'Фаны', value: '610' },
+      { label: 'Spenders', value: '24' } 
     ],
-    image: '',
-    gallery: [],
+    image: 'assets/cases/case-01/main.jpg',
+    gallery: [assets/cases/case-01/01.jpg],
     chart: [],
     link: ''
   },
