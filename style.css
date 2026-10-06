@@ -387,10 +387,14 @@ p{margin:0;}
   display:flex;gap:10px;margin-top:22px;overflow-x:auto;padding-bottom:4px;
 }
 .case-gallery-item{
-  flex:none;width:110px;aspect-ratio:1/1;border-radius:var(--radius-sm);overflow:hidden;
+  flex:none;height:150px;border-radius:var(--radius-sm);overflow:hidden;
   border:1px solid var(--panel-line);
+  background:var(--bg-2);
+  display:flex;align-items:center;justify-content:center;
 }
-.case-gallery-item img{width:100%;height:100%;object-fit:cover;}
+.case-gallery-item img{
+  display:block;height:100%;width:auto;max-width:280px;object-fit:contain;
+}
 .case-chart{
   display:flex;align-items:flex-end;gap:12px;height:90px;margin-top:26px;padding-top:10px;
 }
