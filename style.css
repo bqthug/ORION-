@@ -405,6 +405,13 @@ p{margin:0;}
 .case-link{
   display:inline-flex;margin-top:20px;font-size:13.5px;color:var(--blue-bright);
 }
+.case-gallery-item.is-broken{display:none;}
+
+/* Shown instead of a blank block when case data fails to load, is empty,
+   or every entry turned out to be invalid — see case-system.js */
+.case-state{
+  padding:40px 10px;text-align:center;color:var(--muted);font-size:15px;
+}
 
 /* ---------- Platforms ---------- */
 .platform-row{

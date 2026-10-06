@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
   initCountUp();
   initFaq();
   renderNews();
-  initCaseSystem();
   initSmoothAnchors();
   renderArticle();
 });
@@ -191,105 +190,6 @@ function renderNews() {
 
   grid.innerHTML = html;
   initReveal();
-}
-
-function initCaseSystem() {
-  var orbit = document.getElementById('case-orbit-nodes');
-  var tabs = document.getElementById('case-tabs');
-  var detail = document.getElementById('case-detail');
-  if (!orbit || !detail || typeof ORION_CASES === 'undefined') return;
-
-  var positions = [
-    { top: '4%', left: '50%' },
-    { top: '50%', left: '92%' },
-    { top: '88%', left: '18%' },
-    { top: '30%', left: '8%' },
-    { top: '78%', left: '80%' }
-  ];
-
-  var activeIndex = 0;
-
-  function renderDetail(index) {
-    var c = ORION_CASES[index];
-    if (!c) return;
-    var statsHtml = (c.stats || []).map(function (s) {
-      return '<div><div class="stat-num">' + escapeHtml(s.value) + '</div><div class="stat-label">' + escapeHtml(s.label) + '</div></div>';
-    }).join('');
-
-    var mediaHtml = c.image
-      ? '<div class="case-media"><img src="' + escapeAttr(c.image) + '" alt="' + escapeHtml(c.title) + '"></div>'
-      : '<div class="case-media case-media-placeholder"><span>' + escapeHtml(c.code || '') + '</span></div>';
-
-    var galleryHtml = '';
-    if (c.gallery && c.gallery.length) {
-      galleryHtml = '<div class="case-gallery">' + c.gallery.map(function (src) {
-        return '<div class="case-gallery-item"><img src="' + escapeAttr(src) + '" alt="' + escapeHtml(c.title) + ' — скриншот"></div>';
-      }).join('') + '</div>';
-    }
-
-    var chartHtml = '';
-    if (c.chart && c.chart.length) {
-      var max = Math.max.apply(null, c.chart.map(function (p) { return Number(p.value) || 0; })) || 1;
-      chartHtml = '<div class="case-chart">' + c.chart.map(function (p) {
-        var h = Math.max(6, Math.round((Number(p.value) || 0) / max * 100));
-        return '<div class="case-chart-bar-wrap"><div class="case-chart-bar" style="height:' + h + '%"></div><span>' + escapeHtml(p.label) + '</span></div>';
-      }).join('') + '</div>';
-    }
-
-    var resultHtml = c.result ? '<div class="case-result">' + escapeHtml(c.result) + '</div>' : '';
-    var linkHtml = c.link ? '<a href="' + escapeAttr(c.link) + '" target="_blank" rel="noopener" class="case-link">Подробнее →</a>' : '';
-
-    detail.innerHTML =
-      mediaHtml +
-      '<span class="case-detail-tag">' + escapeHtml(c.platform) + ' · ' + escapeHtml(c.period) + '</span>' +
-      '<h3>' + escapeHtml(c.title) + '</h3>' +
-      resultHtml +
-      '<p>' + escapeHtml(c.description) + '</p>' +
-      '<div class="case-detail-stats">' + statsHtml + '</div>' +
-      chartHtml +
-      galleryHtml +
-      linkHtml;
-  }
-
-  function setActive(index) {
-    if (index === activeIndex) return;
-    activeIndex = index;
-    orbit.querySelectorAll('.case-node').forEach(function (n) {
-      n.classList.toggle('is-active', parseInt(n.dataset.index, 10) === index);
-    });
-    if (tabs) {
-      tabs.querySelectorAll('.case-tab').forEach(function (n) {
-        n.classList.toggle('is-active', parseInt(n.dataset.index, 10) === index);
-      });
-    }
-    detail.style.opacity = 0;
-    setTimeout(function () {
-      renderDetail(index);
-      detail.style.opacity = 1;
-    }, 180);
-  }
-
-  var nodesHtml = ORION_CASES.map(function (c, i) {
-    var pos = positions[i % positions.length];
-    return '<button class="case-node' + (i === 0 ? ' is-active' : '') + '" style="top:' + pos.top + ';left:' + pos.left + ';" data-index="' + i + '" aria-label="Показать ' + escapeHtml(c.title) + '">' + escapeHtml(c.code || c.id) + '</button>';
-  }).join('');
-  orbit.insertAdjacentHTML('beforeend', nodesHtml);
-  orbit.querySelectorAll('.case-node').forEach(function (node) {
-    node.addEventListener('click', function () { setActive(parseInt(node.dataset.index, 10)); });
-  });
-
-  if (tabs) {
-    var tabsHtml = ORION_CASES.map(function (c, i) {
-      return '<button class="case-tab' + (i === 0 ? ' is-active' : '') + '" data-index="' + i + '">' + escapeHtml(c.code || c.id) + '</button>';
-    }).join('');
-    tabs.insertAdjacentHTML('beforeend', tabsHtml);
-    tabs.querySelectorAll('.case-tab').forEach(function (tab) {
-      tab.addEventListener('click', function () { setActive(parseInt(tab.dataset.index, 10)); });
-    });
-  }
-
-  detail.style.transition = 'opacity .3s ease';
-  renderDetail(0);
 }
 
 function renderArticle() {
